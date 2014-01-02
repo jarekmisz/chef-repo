@@ -24,8 +24,6 @@ if Dir[(node[:openvswitch][:conf_dir])] == []
   end
 end
 
-service "openvswitch" do
-  provider Chef::Provider::Service::Upstart
-  supports :status => true, :start => true, :stop => true
+service 'openvswitch' do
   action [:enable, :start]
 end
