@@ -6,27 +6,37 @@ then
   exit
 fi
 
-intfc=$1
-DIR=/etc/sysconfig/network-scripts
+export intfc=$1
+export DIR=/etc/sysconfig/network-scripts
 #DIR=/tmp/ovs
 
-if [ ! -d "$DIR" ]; then
+if [ ! -d "$DIR/backup" ]; then
   mkdir -p $DIR/backup
 fi
 
-mv $DIR/ifcfg-$intfc $DIR/backup
-mv $DIR/ifcfg-br* $DIR/backup
-mv $DIR/ifcfg-mgmt $DIR/backup
-mv $DIR/ifcfg-data $DIR/backup
+# Check whether bridge over this pysical interface already exists
+export brdg=`cat ifcfg-$intfc | grep BRIDGE | cut -d= -f2 | awk '{print $1}'`
+
+if [[ "$brdg" == "" ]] ; then
+	#Use the physical interface to retrieve attributes
+	export srcintfc=$intfc
+else
+	export srcintfc=$brdg
+fi
 
 # Extract the MAC address of the pysical interface
-export MAC=`ifconfig $intfc | awk '/HWaddr/ {print $5}'`
+export MAC=`ifconfig $srcintfc | awk '/HWaddr/ {print $5}'`
 
 # Extract the IP address
-export IP=`ifconfig $intfc | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+export IP=`ifconfig $srcintfc | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 
 # Extract the Mask
-export MASK=`ifconfig $intfc | grep 'Mask:' | cut -d: -f4 | awk '{ print $1}'`
+export MASK=`ifconfig $srcintfc | grep 'Mask:' | cut -d: -f4 | awk '{ print $1}'`
+
+mv -f $DIR/ifcfg-$intfc $DIR/backup/
+mv -f $DIR/ifcfg-$brdg $DIR/backup/
+mv -f $DIR/ifcfg-mgmt $DIR/backup/
+mv -f $DIR/ifcfg-data $DIR/backup/
 
 # Create the pysical interface config file
 tee -a $DIR/ifcfg-$intfc <<EOF
