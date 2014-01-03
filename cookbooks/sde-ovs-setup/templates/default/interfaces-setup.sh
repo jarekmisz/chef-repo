@@ -98,8 +98,8 @@ DEVICE="mgmt"
 BOOTPROTO=static
 NM_CONTROLLED=no
 ONBOOT=yes
-IPADDR=10.11.0.4
-NETMASK=255.255.0.0
+IPADDR=<%= @mgmtip %>
+NETMASK=<%= @mgmtmask %>
 TYPE=OVSIntPort
 DEVICETYPE="ovs"
 OVS_BRIDGE=br-$intfc
@@ -115,8 +115,8 @@ DEVICE="data"
 BOOTPROTO=static
 NM_CONTROLLED=no
 ONBOOT=yes
-IPADDR=10.12.0.4
-NETMASK=255.255.0.0
+IPADDR=<%= @dataip %>
+NETMASK=<%= @datamask %>
 TYPE=OVSIntPort
 DEVICETYPE="ovs"
 OVS_BRIDGE=br-$intfc

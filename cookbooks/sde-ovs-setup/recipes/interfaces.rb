@@ -5,6 +5,12 @@ template "/root/interfaces-setup.sh" do
   owner "root"
   group "root"
   mode 0755
+  variables ({
+  :mgmtip => node[:openvswitch][:mgmtip],
+  :mgmtmask => node[:openvswitch][:mgmtmask],
+  :dataip => node[:openvswitch][:dataip],
+  :datamask => node[:openvswitch][:datamask]
+  })
 end
 
 service "network"
