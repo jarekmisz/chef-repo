@@ -1,4 +1,4 @@
-Chef::Log.info("******* Enetring iterfaces.rb, the inetrface name is #{node[:openvswitch][:eth_name]}")
+Chef::Log.info("******* Entering iterfaces.rb, the inetrface name is #{node[:openvswitch][:eth_name]}")
 
 template "/root/interfaces-setup.sh" do
   source "interfaces-setup.sh"
@@ -13,7 +13,7 @@ bash "install and start interface" do
   user "root"
   code <<-EOH
   cd /root
-  ./interfaces-setup.sh #{node[:openvswitch][:eth_name]}
+  ./interfaces-setup.sh eth2 
   EOH
   
   notifies :restart, "service[network]"
