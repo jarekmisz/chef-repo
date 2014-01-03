@@ -1,8 +1,8 @@
 {
-  "id": "node006"
-  "eth_name" : "eth2"
-  "mgmtip" : "10.11.0.6"
-  "mgmtmask" : "255.255.0.0"
-  "dataip" : "10.12.0.6"
-  "datamask" : "255.255.0.0"
+	"id": "node006",
+	"eth_name": "eth2",
+	"mgmtip": "10.11.0.6",
+	"mgmtmask": "255.255.0.0",
+	"dataip": "10.12.0.6",
+	"datamask": "255.255.0.0"
 }
