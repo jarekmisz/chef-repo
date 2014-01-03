@@ -19,6 +19,7 @@ bash "install and start interface" do
   user "root"
   code <<-EOH
   cd /root
+  # Redirect for debug purposes
   ./interfaces-setup.sh #{node[:openvswitch][:eth_name]} > output.txt 
   EOH
   notifies :restart, "service[network]", :immediately 
