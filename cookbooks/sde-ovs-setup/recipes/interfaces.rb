@@ -21,9 +21,5 @@ bash "install and start interface" do
   cd /root
   ./interfaces-setup.sh #{node[:openvswitch][:eth_name]} > output.txt 
   EOH
-  notifies :restart, "service[network]" 
+  notifies :restart, "service[network]", :immediately 
 end
-
-Chef::Log.info("******* Sleep for 30 secods to allow the network to restart..")
-
-sleep(30)
