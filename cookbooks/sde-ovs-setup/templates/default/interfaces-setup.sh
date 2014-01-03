@@ -18,8 +18,9 @@ if [ ! -d "$DIR/backup" ]; then
 fi
 
 # Check whether bridge over this pysical interface already exists
-export brdg=`cat ifcfg-$intfc | grep BRIDGE | cut -d= -f2 | awk '{print $1}'`
+export brdg=`cat ifcfg-$intfc | grep 'BRIDGE' | cut -d= -f2 | awk '{print $1}'`
 
+echo "Bridge name retrieved from the $intfc configuration file is $brdg"
 
 if [[ "$brdg" == "" ]] ; then
 	#Use the physical interface to retrieve attributes
