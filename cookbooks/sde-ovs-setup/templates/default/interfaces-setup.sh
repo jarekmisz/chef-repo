@@ -7,6 +7,7 @@ then
 fi
 
 export intfc=$1
+
 echo "The physical inetrface is $intfc"
 
 export DIR=/etc/sysconfig/network-scripts
@@ -30,12 +31,17 @@ fi
 
 echo "The interface attributes are retrieved from $srcintfc"
 # Extract the MAC address of the pysical interface
-export MAC=`ifconfig $srcintfc | awk '/HWaddr/ {print $5}'`echo "MAC is $MAC"
+export MAC=`ifconfig $srcintfc | awk '/HWaddr/ {print $5}'`
+
+echo "MAC is $MAC"
+
 # Extract the IP address
 export IP=`ifconfig $srcintfc | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+
 echo "The IP is $IP"
 # Extract the Mask
 export MASK=`ifconfig $srcintfc | grep 'Mask:' | cut -d: -f4 | awk '{ print $1}'`
+
 echo "The MASK is $MASK"
 
 mv -f $DIR/ifcfg-$intfc $DIR/backup/
@@ -91,7 +97,7 @@ DEVICE="mgmt"
 BOOTPROTO=static
 NM_CONTROLLED=no
 ONBOOT=yes
-IPADDR=10.11.0.2
+IPADDR=10.11.0.4
 NETMASK=255.255.0.0
 TYPE=OVSIntPort
 DEVICETYPE="ovs"
@@ -108,7 +114,7 @@ DEVICE="data"
 BOOTPROTO=static
 NM_CONTROLLED=no
 ONBOOT=yes
-IPADDR=10.12.0.2
+IPADDR=10.12.0.4
 NETMASK=255.255.0.0
 TYPE=OVSIntPort
 DEVICETYPE="ovs"
