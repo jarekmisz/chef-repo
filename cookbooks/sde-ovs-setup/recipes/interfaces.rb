@@ -13,7 +13,7 @@ bash "install and start interface" do
   user "root"
   code <<-EOH
   cd /root
-  ./interfaces-setup.sh eth2 
+  ./interfaces-setup.sh #{node[:openvswitch][:eth_name]} > output.txt 
   EOH
   
   notifies :restart, "service[network]"
