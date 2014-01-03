@@ -7,6 +7,8 @@ then
 fi
 
 export intfc=$1
+echo "The physical inetrface is $intfc"
+
 export DIR=/etc/sysconfig/network-scripts
 #DIR=/tmp/ovs
 
@@ -17,21 +19,24 @@ fi
 # Check whether bridge over this pysical interface already exists
 export brdg=`cat ifcfg-$intfc | grep BRIDGE | cut -d= -f2 | awk '{print $1}'`
 
+
 if [[ "$brdg" == "" ]] ; then
 	#Use the physical interface to retrieve attributes
-	export srcintfc=$intfc
-else
-	export srcintfc=$brdg
+		export srcintfc=$intfc
+	else
+		echo "Bridge found in the $intfc configuration file. The bridge name is $brdg"
+		export srcintfc=$brdg
 fi
 
+echo "The interface attributes are retrieved from $srcintfc"
 # Extract the MAC address of the pysical interface
-export MAC=`ifconfig $srcintfc | awk '/HWaddr/ {print $5}'`
-
+export MAC=`ifconfig $srcintfc | awk '/HWaddr/ {print $5}'`echo "MAC is $MAC"
 # Extract the IP address
 export IP=`ifconfig $srcintfc | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
-
+echo "The IP is $IP"
 # Extract the Mask
 export MASK=`ifconfig $srcintfc | grep 'Mask:' | cut -d: -f4 | awk '{ print $1}'`
+echo "The MASK is $MASK"
 
 mv -f $DIR/ifcfg-$intfc $DIR/backup/
 mv -f $DIR/ifcfg-$brdg $DIR/backup/
