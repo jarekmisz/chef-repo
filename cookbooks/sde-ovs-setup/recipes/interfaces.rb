@@ -4,8 +4,7 @@ sde_node_name=node['hostname']
 
 Chef::Log.info("******* The node's hostname is #sde_node_name. It will be used to retrieve node's attributes from the sed_nodes data bag...")
 
-sde_node = data_bag_item('sde_nodes', sde_node_name)
-
+sde_node = search(:sde-nodes, "id:#sde_node_name").first
 
 template "/root/interfaces-setup.sh" do
   source "interfaces-setup.sh"
