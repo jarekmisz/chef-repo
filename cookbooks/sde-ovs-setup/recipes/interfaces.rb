@@ -1,8 +1,8 @@
 sde_node_name=node['hostname']
 
-Chef::Log.info("******* The node's hostname is #sde_node_name. It will be used to retrieve node's attributes from the sed_nodes data bag...")
+Chef::Log.info("******* The node's hostname is #{sde_node_name}. It will be used to retrieve node's attributes from the sed_nodes data bag...")
 
-sde_node = search(:sde-nodes, "id:#sde_node_name").first
+sde_node = search(:sdenodes, "id:node006").first
 
 Chef::Log.info("******* The node's network interface name is #{sde_node['eth_name']}")
 
