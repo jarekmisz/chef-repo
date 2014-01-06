@@ -2,7 +2,7 @@ sde_node_name=node['hostname']
 
 Chef::Log.info("******* The node's hostname is #{sde_node_name}. It will be used to retrieve node's attributes from the sed_nodes data bag...")
 
-sde_node = search(:sdenodes, "id:node006").first
+sde_node = search(:sdenodes, "id:#{sde_node_name}").first
 
 Chef::Log.info("******* The node's network interface name is #{sde_node['eth_name']}")
 
@@ -12,7 +12,7 @@ template "/root/interfaces-setup.sh" do
   group "root"
   mode 0755
   variables ({
-  :mgmttip => sde_node['mgmtip'],
+  :mgmtip => sde_node['mgmtip'],
   :mgmtmask => sde_node['mgmtmask'],
   :dataip => sde_node['dataip'],
   :datamask => sde_node['datamask']
