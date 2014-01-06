@@ -1,10 +1,10 @@
-Chef::Log.info("******* Entering iterfaces.rb, the inetrface name is #{sde_node['eth_name']}")
-
 sde_node_name=node['hostname']
 
 Chef::Log.info("******* The node's hostname is #sde_node_name. It will be used to retrieve node's attributes from the sed_nodes data bag...")
 
 sde_node = search(:sde-nodes, "id:#sde_node_name").first
+
+Chef::Log.info("******* The node's network interface name is #{sde_node['eth_name']}")
 
 template "/root/interfaces-setup.sh" do
   source "interfaces-setup.sh"
