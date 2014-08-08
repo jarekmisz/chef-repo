@@ -20,7 +20,9 @@ template "/root/db2-preInstall.sh" do
   :hostname => node['hostname'],
   :fqn => node['hostname'] + '.' + node[:db2_preinstall][:domain],
   :domain => node[:db2_preinstall][:domain],
-  :nameserver => node[:db2_preinstall][:nameserver]
+  :nameserver => node[:db2_preinstall][:nameserver],
+  :ftp3user => node[:db2_preinstall][:ftp3user],
+  :ftp3password => node[:db2_password][:ftp3user]
   })
 end
 
